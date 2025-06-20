@@ -52,10 +52,11 @@
 
 ### Option 2: Self-Hosted via Docker
 
-docker run -it --rm \
+```docker run -it --rm \
   -p 5678:5678 \
   -v ~/.n8n:/home/node/.n8n \
   n8nio/n8n
+```
 
 Then open http://localhost:5678, import the workflow JSON, and connect your API keys.
 
@@ -63,7 +64,7 @@ Then open http://localhost:5678, import the workflow JSON, and connect your API 
 
 ## 📁 Project Structure
 
-Meetly/
+```Meetly/
 │
 ├── README.md
 ├── workflows/
@@ -76,6 +77,7 @@ Meetly/
 ├── .env.example
 └── deploy/
     └── Dockerfile or railway.json
+```
 
 ## 🧪 Sample OpenAI Prompt
 
@@ -139,11 +141,11 @@ See the [`/docs`](./docs) folder (or wiki) for:
 
 ## 📜 License
 
-This project is licensed under the MIT License. See the LICENSE file for full terms.
+This project is licensed under the Licensed under the [MIT License](https://opensource.org/licenses/MIT). See the LICENSE file for full terms.
 
 ---
 
-## 🙌 Acknowledgements/Credits
+## 🙌 Credits
 
-Built with ❤️ by Jigisha Baliyann
-Powered by n8n & OpenAI
+Built with ❤️ by [Jigisha Baliyann](https://github.com/Jigisha-Baliyann)  
+Powered by [n8n](https://n8n.io) and [OpenAI](https://openai.com)
