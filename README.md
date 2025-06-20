@@ -64,10 +64,7 @@ Then open http://localhost:5678, import the workflow JSON, and connect your API 
 
 ## 📁 Project Structure
 
-pgsql
-Copy
-Edit
-AutoMeetMate/
+Meetly/
 │
 ├── README.md
 ├── workflows/
@@ -81,25 +78,16 @@ AutoMeetMate/
 └── deploy/
     └── Dockerfile or railway.json
 
-## 🧪 Sample GPT Prompt
+## 🧪 Sample OpenAI Prompt
 
 Summarize the following meeting transcript. Then extract all action items, grouped by participant name. Include deadlines if mentioned. Format clearly in markdown or bullet points.
 [Paste meeting transcript here]
 
 ---
 
-## 🎯 Use Case Example
+## 📌 Example Use Case
 
-After a remote team finishes a meeting, a transcript is uploaded to Google Docs. AutoMeetMate reads the transcript, summarizes key decisions, assigns tasks to each participant, and sends reminders via email and calendar — all automatically.
-
----
-
-## 👥 Target Users
-
-- Remote tech teams & startups
-- Freelancers & consultants
-- Online educators & bootcamp hosts
-- HR & operations managers
+> Upload a transcript → Get AI summary + tasks → Auto-reminders sent.
 
 ---
 
