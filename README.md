@@ -94,6 +94,8 @@ Summarize the following meeting transcript. Then extract all action items, group
 
 ## 📷 Screenshots
 
+(to be attached)
+
 ---
 
 ## 🔐 Environment Variables
@@ -117,7 +119,7 @@ In your OpenAI (HTTP Request) node:
 1. Set Authorization: Bearer {{ $env.AZURE_OPENAI_API_KEY }}
 2. Set api-key and api-version as query params or headers
 3. Use {{ $env.AZURE_OPENAI_ENDPOINT }} as the base URL
-👉 Replace actual keys with your_api_key_here in your .env.example for security.
+> 👉 Replace actual keys with your_api_key_here in your .env.example for security.
 
 ---
 
@@ -141,7 +143,7 @@ See the [`/docs`](./docs) folder (or wiki) for:
 
 ## 📜 License
 
-This project is licensed under the Licensed under the [MIT License](https://opensource.org/licenses/MIT). See the LICENSE file for full terms.
+This project is licensed under the Licensed under the [MIT License](https://opensource.org/licenses/MIT). See the [LICENSE](https://github.com/Jigisha-Baliyann/Meetly/blob/main/LICENSE) file for full terms.
 
 ---
 
