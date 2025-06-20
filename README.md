@@ -122,6 +122,21 @@ Make sure to set the following environment variables in `.env` or n8n credential
 
 > 👉 Copy from `.env.example` and rename to `.env`
 
+Usage in n8n:
+
+In your OpenAI (HTTP Request) node:
+1. Set Authorization: Bearer {{ $env.AZURE_OPENAI_API_KEY }}
+2. Set api-key and api-version as query params or headers
+3. Use {{ $env.AZURE_OPENAI_ENDPOINT }} as the base URL
+👉 Replace actual keys with your_api_key_here in your .env.example for security.
+
+---
+
+## 🛡️ Security Reminder
+
+**⚠️ Do NOT commit `.env` or real API keys** to GitHub.  
+Add `.env` to your `.gitignore`.
+
 ---
 
 ## 📚 Documentation
