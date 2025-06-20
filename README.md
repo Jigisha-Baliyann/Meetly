@@ -52,7 +52,6 @@
 
 ### Option 2: Self-Hosted via Docker
 
-```bash
 docker run -it --rm \
   -p 5678:5678 \
   -v ~/.n8n:/home/node/.n8n \
