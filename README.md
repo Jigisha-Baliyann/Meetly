@@ -44,6 +44,8 @@ This project was built using **n8n** automation platform integrated with **Toget
 4. **Create To-Do** → New event created on Google Calendar (optional)
 5. **Send Notifications** → Telegram & Discord with meeting summary + tasks
 
+![final-workflow](https://github.com/user-attachments/assets/16ff53aa-2044-4989-9508-f69a100423bf)
+
 ---
 
 ## 📛 Badges
@@ -58,12 +60,10 @@ This project was built using **n8n** automation platform integrated with **Toget
 ## 📂 Project Structure
 
 ```Meetly/
-├── workflows/
-│ └── meetly-workflow.json # Exported n8n workflow
-├── assets/
-│ └── demo-video.mp4 # Demo video of the project
+├── Meetly.json # Exported n8n workflow
+├── Meetly-Demo.mp4 # Demo video of the project
 ├── README.md # This file
-└── presentation.pptx # Project presentation
+└── Meetly-Presentation.pptx # Project presentation
 ```
 
 ---
@@ -89,7 +89,7 @@ git clone https://github.com/Jigisha-Baliyann/Meetly.git
 
 ## 🎥 Demo Video
 
-Check the demo in the assets/demo-video.mp4 file or view here (add link when uploaded).
+Check the demo here https://drive.google.com/file/d/1VrpnGjl-uoV41gPbvpAQh6IC1ARUbmDC/view?usp=sharing
 
 ---
 
