@@ -1,0 +1,284 @@
+{
+  "name": "Meetly",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.together.xyz/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer be050f41753309a45983b538ad8b5fe0db097b8371d09f5a6db9a109c983a88e"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"model\": \"mistralai/Mixtral-8x7B-Instruct-v0.1\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Meeting Transcript: {{$json['description']}}\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"This is a test meeting where we discussed the demo and project submission timeline.\"\n    }\n  ],\n  \"temperature\": 0.5,\n  \"max_tokens\": 500\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        400,
+        320
+      ],
+      "id": "385930fe-b142-4f3d-898f-98b3bc439191",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "jigisha21g@gmail.com",
+          "mode": "id"
+        },
+        "additionalFields": {
+          "description": "{{ $json[\"choices\"][0][\"message\"][\"content\"] }}",
+          "summary": "{{ $json[\"summaryTitle\"] }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        620,
+        320
+      ],
+      "id": "43ad440a-e39c-4124-9f42-7bc6e03cf63d",
+      "name": "Google Calendar",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "V7oUd8fiEmiIUO7v",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "jigisha21g@gmail.com",
+          "mode": "id"
+        },
+        "timeMax": "={{ $now.plus({ hours: 1 }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        -120,
+        340
+      ],
+      "id": "f95df944-5a24-478b-ae7c-f4466c3769dd",
+      "name": "Google Calendar1",
+      "alwaysOutputData": false,
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "V7oUd8fiEmiIUO7v",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -380,
+        340
+      ],
+      "id": "421bc1bf-b0d4-40fe-a9e6-4aff99a5c884",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "d3eb2f5e-3b08-4233-9505-afb9be368a83",
+              "leftValue": "={{ $json[\"conferenceData\"][\"entryPoints\"][0][\"uri\"] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "8fd05c4a-c8fb-47ec-87c5-4c3e3a451a61",
+              "leftValue": "",
+              "rightValue": "=meet.google.com",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        120,
+        340
+      ],
+      "id": "cdc15990-1866-476b-a215-7cbecfbac13c",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "guildId": {
+          "__rl": true,
+          "value": "1385652616234663966",
+          "mode": "list",
+          "cachedResultName": "AI Agent ShowCase by Jigisha",
+          "cachedResultUrl": "https://discord.com/channels/1385652616234663966"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "1385652616234663969",
+          "mode": "list",
+          "cachedResultName": "general",
+          "cachedResultUrl": "https://discord.com/channels/1385652616234663966/1385652616234663969"
+        },
+        "content": "={{ $node[\"HTTP Request1\"].json[\"choices\"][0][\"message\"][\"content\"] }}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        840,
+        320
+      ],
+      "id": "ec67136f-2849-4b33-9083-1d70b87318a4",
+      "name": "Discord",
+      "webhookId": "da49457e-75c8-439a-80b7-490bc2710715",
+      "credentials": {
+        "discordBotApi": {
+          "id": "fM0ZLurOu3a9u7mZ",
+          "name": "Discord Bot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "7999368533",
+        "text": "=Meeting Summary: {{ $node[\"HTTP Request1\"].json[\"choices\"][0][\"message\"][\"content\"] }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1040,
+        320
+      ],
+      "id": "1f6aa4a9-e202-4027-a6bc-a63bc065e1d6",
+      "name": "Telegram",
+      "webhookId": "7c09afff-a323-4b6d-b94b-a69b3787fe6d",
+      "credentials": {
+        "telegramApi": {
+          "id": "bqDrB79r8g6bSz6L",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Google Calendar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Google Calendar1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Calendar1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        []
+      ]
+    },
+    "Google Calendar": {
+      "main": [
+        [
+          {
+            "node": "Discord",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Discord": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "2ca9ace6-d431-4af3-baa6-e4297e5fdd3a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d75c96998c347167f89083a4692e4177d2575357ef93d9b2d0199f1e21067cf5"
+  },
+  "id": "50Jmvd4qaBsiVt6S",
+  "tags": []
+}
