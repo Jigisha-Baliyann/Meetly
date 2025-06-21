@@ -1,29 +1,48 @@
-# 🤖 Meetly – AI Meeting Insights & Follow-Up Agent
+# Meetly 🤖📅
+## AI-powered Meeting Insights & Follow-up Automation System
 
-**Meetly** is a smart, no-code automation agent that uses AI to turn your virtual meeting transcripts into actionable follow-ups. Built with [n8n](https://n8n.io), it automatically summarizes meetings, extracts to-dos per participant, and sends reminders via Email, Slack, or Google Calendar — all without writing a single line of code.
+---
+
+## 📝 About the Project
+
+**Meetly** is a virtual AI assistant that automates meeting follow-ups by:
+- Generating key point **summaries** from meeting transcripts
+- Creating **personalized to-do lists** for participants
+- Sending follow-ups **automatically** to **Telegram** and **Discord**
+- Scheduling action items **directly on Google Calendar**
+
+This project was built using **n8n** automation platform integrated with **Together.ai** language models, along with Google Calendar, Discord, and Telegram APIs.
 
 ---
 
 ## 🚀 Features
 
-- 📄 **Transcript Ingestion** – Accepts transcripts from Google Docs, Notion, or direct webhook input
-- ✨ **AI Summarization** – Uses OpenAI to summarize meetings and extract action items
-- 🧑‍🤝‍🧑 **Participant-Specific Tasks** – Assigns to-dos to individuals automatically
-- 📬 **Follow-Up Reminders** – Sends follow-up tasks via Email or Slack
-- 📆 **Calendar Integration** – Syncs deadlines with Google Calendar
-- ⚙️ **Built Entirely in n8n** – Visual, drag-and-drop workflow automation
+✅ Automatic **meeting summaries**  
+✅ Personalized **to-do lists** for participants  
+✅ Direct **Google Calendar** event creation  
+✅ **Discord** notifications  
+✅ **Telegram Bot** notifications  
+✅ Fully **automated** workflow → Zero manual intervention
 
 ---
 
-## 🧠 Tech Stack
+## 🏗️ Built With
 
-| Tool                  | Purpose                                        |
-|-----------------------|------------------------------------------------|
-| [n8n](https://n8n.io) | Visual workflow automation platform            |
-| [OpenAI GPT-4 API](https://platform.openai.com/) | NLP for summarization and task extraction |
-| Google Calendar API   | Task reminders and follow-up scheduling        |
-| Slack / Email Nodes   | Send notifications and follow-up summaries     |
-| Google Docs / Notion  | Data input via transcripts                     |
+- **n8n** - Low-code automation platform
+- **Together.ai API** - LLM used for summarization (Mixtral-8x7B)
+- **Google Calendar API** - For meeting events and to-dos
+- **Discord Webhooks** - For team notifications
+- **Telegram Bot API** - Personal notifications
+
+---
+
+## 📊 Workflow Overview
+
+1. **Trigger** → Scheduled execution (via n8n Cron trigger)
+2. **Get Meetings** → From Google Calendar
+3. **Summarize Meeting** → Using Together.ai API (Mixtral-8x7B model)
+4. **Create To-Do** → New event created on Google Calendar (optional)
+5. **Send Notifications** → Telegram & Discord with meeting summary + tasks
 
 ---
 
@@ -36,108 +55,41 @@
 
 ---
 
-## 🔧 Setup Instructions
-
-### Option 1: n8n Cloud (Recommended)
-
-1. Sign up at [https://n8n.io](https://n8n.io)
-2. Import the `.json` workflows from the `/workflows` folder
-3. Configure credentials for:
-   - OpenAI API Key
-   - Google Calendar (OAuth2 setup in n8n)
-   - Email/Slack integrations (as needed)
-4. Test using a demo transcript file or a Google Doc link
-
----
-
-### Option 2: Self-Hosted via Docker
-
-```docker run -it --rm \
-  -p 5678:5678 \
-  -v ~/.n8n:/home/node/.n8n \
-  n8nio/n8n
-```
-
-Then open http://localhost:5678, import the workflow JSON, and connect your API keys.
-
----
-
-## 📁 Project Structure
+## 📂 Project Structure
 
 ```Meetly/
-│
-├── README.md
 ├── workflows/
-│   ├── summary-workflow.json
-│   └── reminder-workflow.json
-├── prompts/
-│   └── gpt_prompts.md
+│ └── meetly-workflow.json # Exported n8n workflow
 ├── assets/
-│   └── screenshots/
-├── .env.example
-└── deploy/
-    └── Dockerfile or railway.json
+│ └── demo-video.mp4 # Demo video of the project
+├── README.md # This file
+└── presentation.pptx # Project presentation
 ```
 
-## 🧪 Sample OpenAI Prompt
+---
 
-Summarize the following meeting transcript. Then extract all action items, grouped by participant name. Include deadlines if mentioned. Format clearly in markdown or bullet points.
-[Paste meeting transcript here]
+## ⚙️ How to Run Locally
+
+1. Clone this repository:
+```bash
+git clone https://github.com/Jigisha-Baliyann/Meetly.git
+```
+
+2. Import the "meetly-workflow.json" into your n8n instance.
+
+3. Configure your credentials:
+   ✅ Together.ai API Key → https://together.ai/settings/api-keys
+   ✅ Google Calendar API OAuth
+   ✅ Discord Webhook URL
+   ✅ Telegram Bot Token
+
+4. Activate the workflow → Run → Sit back and relax.
 
 ---
 
-## 📌 Example Use Case
+## 🎥 Demo Video
 
-> Upload a transcript → Get AI summary + tasks → Auto-reminders sent.
-
----
-
-## 📷 Screenshots
-
-(to be attached)
-
----
-
-## 🔐 Environment Variables
-
-Make sure to set the following environment variables in `.env` or n8n credentials section:
-
-| Variable Name                  | Description                              |
-|-------------------------------|------------------------------------------|
-| `OPENAI_API_KEY`              | Your OpenAI GPT-4 key                    |
-| `GOOGLE_CLIENT_ID`            | OAuth2 Client ID for Calendar API        |
-| `GOOGLE_CLIENT_SECRET`        | OAuth2 Client Secret for Calendar API    |
-| `SLACK_WEBHOOK_URL` *(opt)*   | Webhook URL to send Slack notifications  |
-| `EMAIL_SMTP_USER` *(opt)*     | Email service username                   |
-| `EMAIL_SMTP_PASS` *(opt)*     | Email service password or app key        |
-
-> 👉 Copy from `.env.example` and rename to `.env`
-
-Usage in n8n:
-
-In your OpenAI (HTTP Request) node:
-1. Set Authorization: Bearer {{ $env.AZURE_OPENAI_API_KEY }}
-2. Set api-key and api-version as query params or headers
-3. Use {{ $env.AZURE_OPENAI_ENDPOINT }} as the base URL
-> 👉 Replace actual keys with your_api_key_here in your .env.example for security.
-
----
-
-## 🛡️ Security Reminder
-
-**⚠️ Do NOT commit `.env` or real API keys** to GitHub.  
-Add `.env` to your `.gitignore`.
-
----
-
-## 📚 Documentation
-
-See the [`/docs`](./docs) folder (or wiki) for:
-
-- 🔁 Workflow logic & node-by-node explanation
-- ✨ OpenAI prompt variations
-- ⚠️ Error handling for API timeouts
-- 📅 Google Calendar auth troubleshooting
+Check the demo in the assets/demo-video.mp4 file or view here (add link when uploaded).
 
 ---
 
