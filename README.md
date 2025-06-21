@@ -78,10 +78,10 @@ git clone https://github.com/Jigisha-Baliyann/Meetly.git
 2. Import the "meetly-workflow.json" into your n8n instance.
 
 3. Configure your credentials:
-   ✅ Together.ai API Key → https://together.ai/settings/api-keys
-   ✅ Google Calendar API OAuth
-   ✅ Discord Webhook URL
-   ✅ Telegram Bot Token
+- Together.ai API Key → https://together.ai/settings/api-keys
+- Google Calendar API OAuth
+- Discord Webhook URL
+- Telegram Bot Token
 
 4. Activate the workflow → Run → Sit back and relax.
 
